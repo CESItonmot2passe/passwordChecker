@@ -42,7 +42,10 @@ export default defineConfig((/* ctx */) => {
         vueShim: true,
         // extendTsConfig (tsConfig) {}
       },
-      publicPath: '/passwordChecker/',
+      publicPath:
+        process.env.NODE_ENV === 'production'
+          ? '/passwordChecker/' // GitHub Pages
+          : '/', // Dev local
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
@@ -144,7 +147,7 @@ export default defineConfig((/* ctx */) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
     pwa: {
-      workboxMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+      workboxMode: 'GenerateSW' as 'GenerateSW' | 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
       // swFilename: 'sw.js',
       // manifestFilename: 'manifest.json',
       // extendManifestJson (json) {},
